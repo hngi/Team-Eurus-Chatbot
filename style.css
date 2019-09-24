@@ -1,73 +1,58 @@
-@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
-@font-face{
-	font-family: Muli;
-	src: url(Muli/Muli-Regular.ttf);
-}
-
-*{
-	padding: 0;
+body {
 	margin: 0;
-	font-family: Muli;
-	box-sizing: border-box;
-}
-
-input{
-	display: block;
-}
-
-.page{
-	background-color: #c9d4fa;
-	height: 100vh;
-	padding: 13px;
-	position: relative;
-}
-
-.chat-section{
-	width: 65%;
-	margin: auto;
-	padding: 7px;
-	overflow-y: auto;
-}
-
-.chat{
-    box-shadow: 0 0 7px #585858;
-    padding: 13px;
-    border-radius: 5px;
-    margin-bottom: 17px;
-    font-weight: 500;
-}
-
-.chat-hu{
+	padding: 0;
+	height: 50hv;
+	background-color: #fff;
+	font-family: Arial, Helvetica, sans-serif;
 	color: white;
-	background-color: #2d21f7;
 }
 
-.chat-bot{
-	background-color: white;
+main {
+	background-color: #1a6382;
+	width: 20em;
+	height: 20em;
+	margin: 5em auto 0 auto;
+	padding-top: 0.5em;
+	text-align: center;
+	border-radius: 0.5em;
 }
 
-.text-section{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    /* border: 1px solid black; */
-    padding-bottom: 10px;
-    padding-top: 10px;
-    background-color: inherit;
-    box-shadow: 0 -3px 7px #5858583d;
-}
-
-.text-section>input{
-	width: 60%;
+#chatlog {
+	width: 90%;
+	height: 8em;
+	background-color: #fff;
 	margin: auto;
-	height: 40px;
-	border-radius: 6px;
-	border-color: transparent;
-	box-shadow: 0px 0px 6px #545557;
-	padding-left: 13px;
-	padding-right: 13px;
-	font-weight: 550;
-	outline-color: transparent;
+	overflow-y: scroll;
+}
+
+#botAsk {
+	width: 90%;
+	height: 2em;
+	background-color: #fff;
+	color: #1a6382;
+	margin: auto;
+	border: none;
+}
+
+.flex {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+}
+
+input {
+	width: 70%;
+	height: 3em;
+	background-color: #fff;
+	color: #59a78f;
+	margin-right: 0;
+	border: none;
+}
+
+button{
+	padding: 0.9em;
+	background-color: #41836f;
+	color: #fff;
+	width: 20%;
 }
