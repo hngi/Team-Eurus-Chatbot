@@ -1,5 +1,58 @@
 body {
 	margin: 0;
 	padding: 0;
+	height: 50hv;
+	background-color: #fff;
 	font-family: Arial, Helvetica, sans-serif;
+	color: white;
+}
+
+main {
+	background-color: #1a6382;
+	width: 20em;
+	height: 20em;
+	margin: 5em auto 0 auto;
+	padding-top: 0.5em;
+	text-align: center;
+	border-radius: 0.5em;
+}
+
+#chatlog {
+	width: 90%;
+	height: 8em;
+	background-color: #fff;
+	margin: auto;
+	overflow-y: scroll;
+}
+
+#botAsk {
+	width: 90%;
+	height: 2em;
+	background-color: #fff;
+	color: #1a6382;
+	margin: auto;
+	border: none;
+}
+
+.flex {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+}
+
+input {
+	width: 70%;
+	height: 3em;
+	background-color: #fff;
+	color: #59a78f;
+	margin-right: 0;
+	border: none;
+}
+
+button{
+	padding: 0.9em;
+	background-color: #41836f;
+	color: #fff;
+	width: 20%;
 }
