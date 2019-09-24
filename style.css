@@ -42,17 +42,20 @@ main {
 }
 
 input {
-	width: 70%;
+	width: 69%;
 	height: 3em;
 	background-color: #fff;
 	color: #59a78f;
 	margin-right: 0;
-	border: none;
+	border-bottom: none;
 }
 
 button{
+	height: 3.35em;
 	padding: 0.9em;
 	background-color: #41836f;
 	color: #fff;
 	width: 20%;
+	border: none;
+
 }
