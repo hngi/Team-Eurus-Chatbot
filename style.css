@@ -1,3 +1,7 @@
+*{
+	box-sizing: border-box;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -19,7 +23,7 @@ main {
 
 #chatlog {
 	width: 90%;
-	height: 8em;
+	height: 6em;
 	background-color: #fff;
 	margin: auto;
 	overflow-y: scroll;
@@ -27,7 +31,7 @@ main {
 
 #botAsk {
 	width: 90%;
-	height: 2em;
+	height: 5em;
 	background-color: #fff;
 	color: #1a6382;
 	margin: auto;
@@ -48,6 +52,8 @@ input {
 	color: #59a78f;
 	margin-right: 0;
 	border-bottom: none;
+	padding-right: 7px;
+	padding-left: 7px;
 }
 
 button{
@@ -57,5 +63,8 @@ button{
 	color: #fff;
 	width: 20%;
 	border: none;
+}
 
+.chat{
+	color: black;
 }
