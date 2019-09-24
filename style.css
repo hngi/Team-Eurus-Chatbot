@@ -1,5 +1,73 @@
-body {
-	margin: 0;
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@font-face{
+	font-family: Muli;
+	src: url(Muli/Muli-Regular.ttf);
+}
+
+*{
 	padding: 0;
-	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	font-family: Muli;
+	box-sizing: border-box;
+}
+
+input{
+	display: block;
+}
+
+.page{
+	background-color: #c9d4fa;
+	height: 100vh;
+	padding: 13px;
+	position: relative;
+}
+
+.chat-section{
+	width: 65%;
+	margin: auto;
+	padding: 7px;
+	overflow-y: auto;
+}
+
+.chat{
+    box-shadow: 0 0 7px #585858;
+    padding: 13px;
+    border-radius: 5px;
+    margin-bottom: 17px;
+    font-weight: 500;
+}
+
+.chat-hu{
+	color: white;
+	background-color: #2d21f7;
+}
+
+.chat-bot{
+	background-color: white;
+}
+
+.text-section{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    /* border: 1px solid black; */
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: inherit;
+    box-shadow: 0 -3px 7px #5858583d;
+}
+
+.text-section>input{
+	width: 60%;
+	margin: auto;
+	height: 40px;
+	border-radius: 6px;
+	border-color: transparent;
+	box-shadow: 0px 0px 6px #545557;
+	padding-left: 13px;
+	padding-right: 13px;
+	font-weight: 550;
+	outline-color: transparent;
 }
