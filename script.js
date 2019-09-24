@@ -1,61 +1,78 @@
-var questions = [
-	'Whats your name ?',
-	'Where are you from?',
-	'What\'s your age?',
-	'What profile you are working on?',
-	'It was nice talking you :)'
-];
-var num = 0;
 
-var inputBox = document.querySelector("#ans");
-var output = document.querySelector("#result");
-output.innerHTML = questions[num];
+let userText = document.querySelector("#inp");
+let dz = document.querySelector("#dz");
 
-function showResponse() {
-var input = inputBox.value;
-if(inputBox.value == "") {
-	
-}else {
-if(num == 0) {
-	output.innerHTML = `Hii ${input}`;
-	inputBox.value = "";
-	inputBox.setAttribute("placeholder", "Wait for 2 secs");
-	++num;
-	setTimeout(changeQuestion, 2000);
-} else if(num == 1) {
-	output.innerHTML = `${input} must be a good place`;
-	inputBox.value = "";
-	inputBox.setAttribute("placeholder", "Wait for 2 secs");
-	++num;
-	setTimeout(changeQuestion, 2000);
-} else if(num == 2) {
-	output.innerHTML = `So you are ${2017 - input} born`;
-	inputBox.value = "";
-	inputBox.setAttribute("placeholder", "Wait for 2 secs");
-	++num;
-	setTimeout(changeQuestion, 2000);
-} else if(num == 3) {
-	output.innerHTML = `Awesome ${input}`;
-	inputBox.value = "";
-	inputBox.setAttribute("placeholder", "Wait for 2 secs");
-	++num;
-	setTimeout(changeQuestion, 2000);
-}
-}
+window.onload = ()=>{
+	// dz.innerHTML = userText.value;
+	/*dz.innerHTML = */bot.greet();
+	userText.focus();
 }
 
-function changeQuestion() {
-inputBox.setAttribute("placeholder", "Enter your response");
-output.innerHTML = questions[num];
-if(num == 4) {
-	inputBox.style.display = "none";
-}
+userText.addEventListener("change", (e)=>{
+	if (userText.value.length !== 0) {
+		dz.innerHTML += `<div class="chat chat-hu">${userText.value}</div>`;
+		bot.listen(userText.value);
+	}
+});
+
+let bot = {
+	name: "Eurus",
+	user: null,
+	asked: "",
+	listen: function(e){
+		console.log(e);
+		this.brain(e)
+	},
+	brain: function(e){
+		this.introduce();
+	},
+	say: function(e){
+		e = `<div class="chat chat-bot">${e}</div>`;
+		dz.innerHTML += e;	
+	},
+	greet: function(){
+		let num = Math.random();
+		console.log(Math.floor(num*this.greetings.intros.length));
+		this.say(this.replacer(this.greetings.intros[Math.floor(num*this.greetings.intros.length)]));
+	},
+	introduce: function(){
+		let num = Math.random();
+		console.log(this.replacer(this.greetings.knowUser[Math.floor(num*this.greetings.knowUser.length)]));
+		this.say(this.replacer(this.greetings.knowUser[Math.floor(num*this.greetings.knowUser.length)]));
+	},
+	greetings: {
+		intros: [
+			`Hi I am {{name}}, I am your companion and am here to help you`,
+			`Hi I am {{name}}, your companion and am here to help you`
+		],
+		knowUser: [
+			`Hello this is {{name}}. what is your name`,
+			`Hello, I am {{name}}, what is your name.`
+		]
+	},
+	replacer: function(e){
+		return (e
+			.replace("{{name}}", this.name)
+			// .replace("{{name}}", this.name)
+		)
+	}
 }
 
-$(document).on('keypress', function(e) {
-if(e.which == 13) {
-	showResponse();
-}
-})
 
-$( "#ans" ).focus();
+
+// (function(words){
+// 	// let words = [];
+// 	let links = [];
+// 	words = words.split(" ");
+// 	words.forEach((e)=>{
+// 		if (e.startsWith("www.") || e.startsWith("http:\/\/") || e.startsWith("https:\/\/")) {
+// 			links.push(e)
+// 		}
+// 	})
+// 	console.log(links)
+// })("https://stackoverflow.com, ww.goog.com")
+
+// (function(){
+
+// })(" ,")
+
