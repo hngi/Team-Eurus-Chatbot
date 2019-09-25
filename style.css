@@ -36,6 +36,8 @@ main {
 	color: #1a6382;
 	margin: auto;
 	border: none;
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 .flex {
