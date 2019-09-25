@@ -26,18 +26,20 @@ main {
 	height: 6em;
 	background-color: #fff;
 	margin: auto;
-	overflow-y: scroll;
+	overflow-y: auto;
+	padding-top: 7px;
 }
 
 #botAsk {
 	width: 90%;
 	height: 5em;
-	background-color: #fff;
+	background-color: #daeaf1;
 	color: #1a6382;
 	margin: auto;
 	border: none;
 	padding-left: 3px;
 	padding-right: 3px;
+	padding-top: 7px;
 }
 
 .flex {
@@ -69,4 +71,11 @@ button{
 
 .chat{
 	color: black;
+}
+
+.cent-elt{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }

@@ -1,6 +1,7 @@
 let userText = document.querySelector("#inp");
 let dz = document.querySelector("#chatlog");
 let botDisplay = document.querySelector("#botAsk");
+let prompInp = document.querySelector("#prompInp");
 
 window.onload = ()=>{
 	userText.focus();
@@ -14,10 +15,41 @@ userText.addEventListener("keypress", (e)=>{
 });
 
 function sendText(){
-	dz.innerHTML = userText.value;
+	if (userText.value.length<1 && prompInp.value.length>1) {
+		bot.setUser(prompInp.value);
+		bot.start();
+		console.log(prompInp.value);
+		dz.innerHTML = prompInp.value;
+		prompInp.value = '';
+		toggleInp();
+		return;
+	} else if(prompInp.value.length<1 && userText.value.length>1){
+		dz.innerHTML = userText.value;
+	}
 	bot.listen(userText.value);
 	userText.value = "";
 	userText.focus();
+}
+
+function toggleInp(){
+	(prompInp.style.display == "none")?prompInp.style.display = "block": prompInp.style.display = "none";
+	(userText.style.display == "none")?userText.style.display = "block": userText.style.display = "none";
+}
+
+prompInp.addEventListener("keypress", (e)=>{
+	if ((e.which === 13 || e.keyCode === 13) && prompInp.value.length !== 0) {
+		bot.setUser(prompInp.value);
+		bot.start();
+		console.log(prompInp.value);
+		dz.innerHTML = prompInp.value;
+		prompInp.value = '';
+		toggleInp();
+	}
+});
+function askName(n){
+	toggleInp();
+	prompInp.focus();
+	botDisplay.innerHTML = n;
 }
 
 let bot = {
@@ -32,16 +64,16 @@ let bot = {
 			`Hello {{user}} how can I be of help to you`
 		],
 		knowUser: [
-			`Hello this is {{name}}. what is your name`,
-			`Hello, I am {{name}}, what is your name.`,
-			`Hello, my name is {{name}}, how about you.`,
-			`Hi, I am {{name}}, whats the name?`
+			`Hello this is {{name}}. what is your name <i>(just your first name) </i>`,
+			`Hello, I am {{name}}, what is your name <i>(just your first name) </i>.`,
+			`Hello, my name is {{name}}, how about you <i>(just your first name) </i>.`,
+			`Hi, I am {{name}}, whats the name? <i>(just your first name) </i>`
 		],
 	},
 	talk:[
 		['Hello', 'Hi', 'Hey'],
 		['how are you', 'what is going on'],
-		['how was your day'],
+		['how was your day', 'how has your day been'],
 		['how old are you'],
 		['who are you', 'what are you', 'are you bot', 'are you human or bot'],
 		['who created you', 'who made you'],
@@ -83,11 +115,9 @@ let bot = {
 						words = response[i]
 						_say = words[Math.floor(Math.random()*words.length)]
 						console.log(words)
-						// "I may not understand what you mean because I am just a roboy"
 					}
 				}
 			}
-			console.log(_say)
 			if (_say.length === 0) {
 				_say = "I may not understand what you mean because I am just a robot. I can help you search for things if say \"what is HNG\" or \"How to code\" ";
 			}
@@ -113,27 +143,24 @@ let bot = {
 	},
 	start: function(e){
 		if (this.user === null) {
-			this.user = prompt(this.replacer(this.greetings.knowUser[Math.floor(Math.random()*this.greetings.knowUser.length)])) || "Boss";
-			this.say(this.replacer(this.greetings.intros[Math.floor(Math.random()*this.greetings.intros.length)]));
+			askName(this.replacer(this.greetings.knowUser[Math.floor(Math.random()*this.greetings.knowUser.length)]));
 		}else{
 			this.greet();
 		}
 	},
 	say: function(e){
 		e = this.replacer(e);
-		// e = `<div class="chat chat-bot">${e}</div>`;
 		botDisplay.innerHTML = e;
-		this.mouth(e)
+		this.mouth(e);
 	},
 	greet: function(){
 		let num = Math.random();
-		console.log(Math.floor(num*this.greetings.intros.length));
+		// console.log(Math.floor(num*this.greetings.intros.length));
 		this.say(this.greetings.intros[Math.floor(num*this.greetings.intros.length)]);
-		// this.brain();
 	},
 	introduce: function(){
 		let num = Math.random();
-		console.log(this.greetings.knowUser[Math.floor(num*this.greetings.knowUser.length)]);
+		// console.log(this.greetings.knowUser[Math.floor(num*this.greetings.knowUser.length)]);
 		this.say(this.greetings.knowUser[Math.floor(num*this.greetings.knowUser.length)]);
 	},
 	replacer: function(e){
@@ -148,5 +175,19 @@ let bot = {
 		speechAbility.rate = .7;
 		speechAbility.voice = speechSynthesis.getVoices()[0];
 		return speechSynthesis.speak(speechAbility);
+	},
+	setUser: function(e){
+		if (e.toLowerCase().includes('my name is') || e.toLowerCase().includes('i am')) {
+			e = e.replace('My name is', '').replace('I am', '').replace('my name is', '').replace('i am', '');
+		}
+		if(e.includes(' ')) {
+			e=e.replace(/\s/g, '');
+		}
+
+		if (e.length < 3) {
+			this.start()
+		} else {
+			this.user = e;
+		}
 	}
 }
