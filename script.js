@@ -49,7 +49,8 @@ prompInp.addEventListener("keypress", (e)=>{
 function askName(n){
 	toggleInp();
 	prompInp.focus();
-	botDisplay.innerHTML = n;
+	// botDisplay.innerHTML = n;
+	bot.say(n);
 }
 
 let bot = {
@@ -85,7 +86,7 @@ let bot = {
 		['help me', 'tell me story', 'tell me a joke', 'help'],
 		['ah', 'yes', 'ok', 'okay'],
 		['Thank you', 'Thanks'],
-		['bye', 'good bye', 'goodbye', 'see you later']
+		['bye', 'good bye', 'goodbye', 'see you later', 'see you soon']
 	],
 	reply:[
 		['Hello {{user}}', 'Hi {{user}}', 'Hey'],
