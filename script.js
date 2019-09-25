@@ -9,13 +9,16 @@ window.onload = ()=>{
 
 userText.addEventListener("keypress", (e)=>{
 	if ((e.which === 13 || e.keyCode === 13) && userText.value.length !== 0) {
-		dz.innerHTML = userText.value;
-		// dz.innerHTML += `<div class="chat chat-hu">${userText.value}</div>`;
-		bot.listen(userText.value);
-		userText.value = "";
-		userText.focus();
+		sendText();
 	}
 });
+
+function sendText(){
+	dz.innerHTML = userText.value;
+	bot.listen(userText.value);
+	userText.value = "";
+	userText.focus();
+}
 
 let bot = {
 	name: "Eurus",
