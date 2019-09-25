@@ -23,9 +23,10 @@ let bot = {
 	asked: "",
 	greetings: {
 		intros: [
-			`Hi I am {{name}}, I am your companion and am here to help you`,
-			`Hi I am {{name}}, your companion and am here to help you`,
-			`Welcome`
+			`Hi {{user}}, my name is {{name}}, I am your assistant, and I am here to help you with your Eurus transaction`,
+			`Hello {{user}} my name is {{name}}, your companion at Eurus wallet`,
+			`Welcome {{user}}, it is another day with Eurus wallet`,
+			`Hello {{user}} how can I be of help to you`
 		],
 		knowUser: [
 			`Hello this is {{name}}. what is your name`,
@@ -37,9 +38,11 @@ let bot = {
 	talk:[
 		['Hello', 'Hi', 'Hey'],
 		['how are you', 'what is going on'],
+		['how was your day'],
 		['how old are you'],
-		['who are you', 'are you bot', 'are you human or bot'],
+		['who are you', 'what are you', 'are you bot', 'are you human or bot'],
 		['who created you', 'who made you'],
+		['what are you doing', 'what are you up to'],
 		['your name please', 'your name', 'may i know your name', "what is your name"],
 		['I love you', 'love you'],
 		['I am happy', 'I am good', 'i\'m happy'],
@@ -52,9 +55,11 @@ let bot = {
 	reply:[
 		['Hello {{user}}', 'Hi {{user}}', 'Hey'],
 		['Fine', 'Pretty well', 'Fantastic', 'I\'m fine {{user}}, thank you', 'I feel great today, thanks for asking {{user}}'],
-		['Nothing much', 'I am here to help you', 'am not ready to go to sleep', 'Am still checking, not sure yet'],
+		['working as an assistant, my day couldn\'t be much better', 'my day was wonderfull as I\'d set out to help many people having issues with their Eurus wallet' ],
 		['well I was made on 2019'],
-		['I am just a bot', 'I am your assitant'],
+		['I am just a bot', 'I am your assistant'],
+		['I was created by the Eurus team', 'I was made by the Eurus team'],
+		['Nothing much', 'I am here to help you', 'am not ready to go to sleep', 'Am still checking, not sure yet'],
 		[`I am {{name}}`, `my name is {{name}}`],
 		['Well I didn\'t think of that as I don\'t have emotions', 'that is nice of you {{user}}'],
 		['Have you ever felt bad', 'I am glad to here that', 'That is nice to here'],
@@ -77,14 +82,12 @@ let bot = {
 						console.log(words)
 						// "I may not understand what you mean because I am just a roboy"
 					}
-
 				}
 			}
 			console.log(_say)
 			if (_say.length === 0) {
-				_say = "I may not understand what you mean because I am just a robot. I can help you search for things if say e.g \"what is HNG\" or \"How to code\" ";
+				_say = "I may not understand what you mean because I am just a robot. I can help you search for things if say \"what is HNG\" or \"How to code\" ";
 			}
-
 			return _say;
 		},
 		open: function(e){
@@ -107,8 +110,8 @@ let bot = {
 	},
 	start: function(e){
 		if (this.user === null) {
-			this.user = prompt(this.replacer(this.greetings.knowUser[Math.floor(Math.random()*this.greetings.knowUser.length)]));
-			this.say(`Hello ${this.user} how can I be of help to you`);
+			this.user = prompt(this.replacer(this.greetings.knowUser[Math.floor(Math.random()*this.greetings.knowUser.length)])) || "Boss";
+			this.say(this.replacer(this.greetings.intros[Math.floor(Math.random()*this.greetings.intros.length)]));
 		}else{
 			this.greet();
 		}
@@ -117,6 +120,7 @@ let bot = {
 		e = this.replacer(e);
 		// e = `<div class="chat chat-bot">${e}</div>`;
 		botDisplay.innerHTML = e;
+		this.mouth(e)
 	},
 	greet: function(){
 		let num = Math.random();
@@ -134,37 +138,12 @@ let bot = {
 			.replace("{{name}}", this.name)
 			.replace("{{user}}", this.user)
 		)
+	},
+	mouth: function(word){
+		let speechAbility = new SpeechSynthesisUtterance();
+		speechAbility.text = word;
+		speechAbility.rate = .7;
+		speechAbility.voice = speechSynthesis.getVoices()[0];
+		return speechSynthesis.speak(speechAbility);
 	}
 }
-
-
-
-/*(function(words){
-	let links = [];
-	words = words.split(" ");
-	words.forEach((e)=>{
-		if (e.startsWith("www.") || e.startsWith("http:\/\/") || e.startsWith("https:\/\/")) {
-			links.push(e)
-		}
-	})
-	for(let i=0; i<links.length; i++){
-		// rmvSym(links[i].toString())
-		// links.push()
-		console.log(links[i])
-	}
-	console.log(links)
-})("https://stackoverflow.com,")
-
-function rmvSym(e){
-	if (/[^\w]/g.test(e.charAt(e.length-1))) {
-		e = e.split('')
-		e.pop()
-		console.log(e)
-		e=e.join('')
-		console.log(e)
-		rmvSym(e);
-	}else{
-		console.log(e)
-		return e;
-	}
-}*/

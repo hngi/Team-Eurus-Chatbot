@@ -5,7 +5,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	height: 50hv;
+	height: 50vh;
 	background-color: #fff;
 	font-family: Arial, Helvetica, sans-serif;
 	color: white;
@@ -36,6 +36,8 @@ main {
 	color: #1a6382;
 	margin: auto;
 	border: none;
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 .flex {
