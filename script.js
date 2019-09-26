@@ -62,13 +62,15 @@ let bot = {
 			`Hi {{user}}, my name is {{name}}, I am your assistant, and I am here to help you with your Eurus transaction`,
 			`Hello {{user}} my name is {{name}}, your companion at Eurus wallet`,
 			`Welcome {{user}}, it is another day with Eurus wallet`,
-			`Hello {{user}} how can I be of help to you`
+			`Hello {{user}} how can I be of help to you`,
+			'Welcome {{user}} how may I help you today'
 		],
 		knowUser: [
 			`Hello this is {{name}}. what is your name <i>(just your first name) </i>`,
 			`Hello, I am {{name}}, what is your name <i>(just your first name) </i>.`,
 			`Hello, my name is {{name}}, how about you <i>(just your first name) </i>.`,
-			`Hi, I am {{name}}, whats the name? <i>(just your first name) </i>`
+			`Hi, I am {{name}}, whats the name? <i>(just your first name) </i>`,
+			'Welcome to Eurus e-wallet, what is your name? <i>(just your first name) </i>'
 		],
 	},
 	talk:[
@@ -76,7 +78,7 @@ let bot = {
 		['how are you', 'what is going on'],
 		['how was your day', 'how has your day been'],
 		['how old are you'],
-		['who are you', 'what are you', 'are you bot', 'are you human or bot'],
+		['who are you', 'what are you', 'are you a bot', 'are you human or bot'],
 		['who created you', 'who made you'],
 		['what are you doing', 'what are you up to'],
 		['your name please', 'your name', 'may i know your name', "what is your name"],
@@ -86,7 +88,10 @@ let bot = {
 		['help me', 'tell me story', 'tell me a joke', 'help'],
 		['ah', 'yes', 'ok', 'okay'],
 		['Thank you', 'Thanks'],
-		['bye', 'good bye', 'goodbye', 'see you later', 'see you soon']
+		['bye', 'good bye', 'goodbye', 'see you later', 'see you soon'],
+		['how to track finance', 'how to track my finance', 'how to track finances', 'how to track my finances'],
+		['current conversion rate', 'conversion rate'],
+		['receive money', 'transfer money']
 	],
 	reply:[
 		['Hello {{user}}', 'Hi {{user}}', 'Hey'],
@@ -103,10 +108,12 @@ let bot = {
 		['I will in my own little way', 'about what actually?'],
 		['Okay {{user}}', 'Tell me about yourself {{user}}', 'ah'],
 		['You are wellcome', 'You\'re welcome {{user}}'],
-		['Bye', 'goodbye {{user}}', 'It\' nice to know that I have been of help', 'see you later {{user}}']
+		['Bye', 'goodbye {{user}}', 'It\' nice to know that I have been of help', 'see you later {{user}}'],
+		['I have just the best app for you Eurus Wallet'],
+		['the current rate is $1 = N360'],
+		['use the Flutterwave Barter App, you can do so much with it']
 	],
 	brain: {
-		// this.say("let's talk")
 		compare: function(said, talk=bot.talk, response=bot.reply){
 			let _say = ""
 			let words = []
@@ -120,7 +127,8 @@ let bot = {
 				}
 			}
 			if (_say.length === 0) {
-				_say = "I may not understand what you mean because I am just a robot. I can help you search for things if say \"what is HNG\" or \"How to code\" ";
+				// _say = "I may not understand what you mean because I am just a robot. I can help you search for things if yiu say \"what is HNG\" or \"How to code\" ";
+				_say = null;
 			}
 			return _say;
 		},
@@ -133,14 +141,21 @@ let bot = {
 			this.say(this.brain.compare(e));
 			return;
 		}
-		if (e.toLowerCase().startsWith("what is") || e.toLowerCase().startsWith("how to")) {
+		if ((e.toLowerCase().startsWith("what is") || e.toLowerCase().startsWith("how to")) && this.brain.compare(e) == null) {
 			e=e.replace("what is ", '')
 			.replace("how to ", '')
 			this.brain.open(e)
 			this.say("Let's check the web");
 			return;
 		}
-		this.say(this.brain.compare(userText.value));
+		if (this.brain.compare(e) != null) {
+			this.say(this.brain.compare(e));
+			return;
+		}else{
+			this.say("I may not understand what you mean because I am just a robot. I can help you search for things if yiu say \"what is HNG\" or \"How to code\" ");
+		}
+
+
 	},
 	start: function(e){
 		if (this.user === null) {
@@ -152,7 +167,7 @@ let bot = {
 	say: function(e){
 		e = this.replacer(e);
 		botDisplay.innerHTML = e;
-		this.mouth(e);
+		// this.mouth(e);
 	},
 	greet: function(){
 		let num = Math.random();
