@@ -109,7 +109,7 @@ let bot = {
 		['Okay {{user}}', 'Tell me about yourself {{user}}', 'ah'],
 		['You are wellcome', 'You\'re welcome {{user}}'],
 		['Bye', 'goodbye {{user}}', 'It\' nice to know that I have been of help', 'see you later {{user}}'],
-		['I have just the best app for you Eurus Wallet'],
+		['I have just the best app for you <b>Eurus Wallet</b>', 'I could recommend <b>Eurus Wallet<b> for your finances'],
 		['the current rate is $1 = N360'],
 		['use the Flutterwave Barter App, you can do so much with it']
 	],
@@ -154,8 +154,6 @@ let bot = {
 		}else{
 			this.say("I may not understand what you mean because I am just a robot. I can help you search for things if yiu say \"what is HNG\" or \"How to code\" ");
 		}
-
-
 	},
 	start: function(e){
 		if (this.user === null) {
@@ -167,7 +165,7 @@ let bot = {
 	say: function(e){
 		e = this.replacer(e);
 		botDisplay.innerHTML = e;
-		// this.mouth(e);
+		this.mouth(e);
 	},
 	greet: function(){
 		let num = Math.random();
