@@ -110,7 +110,7 @@ let bot = {
 		['You are wellcome', 'You\'re welcome {{user}}'],
 		['Bye', 'goodbye {{user}}', 'It\' nice to know that I have been of help', 'see you later {{user}}'],
 		['I have just the best app for you <b>Eurus Wallet</b>', 'I could recommend <b>Eurus Wallet<b> for your finances'],
-		['the current rate is $1 = N360'],
+		['the current rate is $1 = ₦360'],
 		['use the Flutterwave Barter App, you can do so much with it']
 	],
 	brain: {
