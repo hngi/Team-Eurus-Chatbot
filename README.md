@@ -8,6 +8,7 @@ To Do:
 - bot interacts with user based on the name
 
 bot can interact based on the following set of questions
+
 ['Hello', 'Hi', 'Hey']
 
 ['how are you', 'what is going on']
