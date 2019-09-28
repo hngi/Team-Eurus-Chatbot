@@ -1,13 +1,10 @@
 const express = require('express');
-var app = express();
-
+const app = express();
+app.set('port', (process.env.PORT) || 3000);
 app.use(express.static('public'));
 
-app.get('/', (req, res)=> {
-	res.send();
+app.get('/', (req, res) => {
+    res.send('Eurusbot');
 });
 
-
-const port = process.env.PORT || 3000;
-
-app.listen(()=>console.log(`your app is listening on ${port}`));
+app.listen(app.get('port'), () => console.log('app is running on port 3000!'));
