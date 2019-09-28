@@ -1,0 +1,30 @@
+{
+  "name": "team-eurus-chatbot",
+  "version": "1.0.0",
+  "description": "A simple chatbot that interacts with users.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hngi/Team-Eurus-Chatbot.git"
+  },
+  "keywords": [
+    "Eurus",
+    "Team",
+    "Eurus",
+    "EurusBot"
+  ],
+  "author": "Eurus Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hngi/Team-Eurus-Chatbot/issues"
+  },
+  "homepage": "https://github.com/hngi/Team-Eurus-Chatbot#readme"
+}
