@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A simple chatbot that interacts with users.",
   "main": "server.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.17.1"
+  },
   "devDependencies": {},
   "scripts": {
     "start": "node server.js",
