@@ -1,7 +1,62 @@
-let userText = document.querySelector("#inp");
-let dz = document.querySelector("#chatlog");
-let botDisplay = document.querySelector("#botAsk");
-let prompInp = document.querySelector("#prompInp");
+
+/*Script added by @daaef*/
+
+var $messages = $('.messages-content'),
+    d, h, m,
+    i = 0;
+
+$(window).load(function() {
+  $messages.mCustomScrollbar();
+  setTimeout(function() {
+    
+  }, 100);
+});
+
+function updateScrollbar() {
+  $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
+    scrollInertia: 10,
+    timeout: 0
+  });
+  console.log('updating scrollbar')
+}
+
+function setDate(){
+  d = new Date()
+  if (m != d.getMinutes()) {
+    m = d.getMinutes();
+    $('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
+  }
+}
+
+function insertMessage() {
+  msg = $('.message-input').val();
+  if ($.trim(msg) == '') {
+    return false;
+  }
+  $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+  setDate();
+  $('.message-input').val(null);
+  updateScrollbar();
+  setTimeout(function() {
+    fakeMessage();
+  }, 1000 + (Math.random() * 20) * 100);
+}
+
+$('.message-submit').click(function() {
+	sendText()
+});
+
+$(window).on('keydown', function(e) {
+  if (e.which == 13) {
+    sendText()
+    return false;
+  }
+})
+
+/*Script added by @daaef*/
+
+let userText = document.querySelector(".message-input.one");
+let prompInp = document.querySelector(".message-input.two");
 
 window.onload = ()=>{
 	userText.focus();
@@ -16,18 +71,36 @@ userText.addEventListener("keypress", (e)=>{
 
 function sendText(){
 	if (userText.value.length<1 && prompInp.value.length>1) {
-		bot.setUser(prompInp.value);
-		bot.start();
-		console.log(prompInp.value);
-		dz.innerHTML = prompInp.value;
+		/*Script modified by @daaef*/
+		msg = $('.message-input.two').val();
+		$('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+		setDate();
+		$('.message-input').val(null);
+		updateScrollbar();
+		setTimeout(function() {
+			bot.setUser(msg);
+			bot.start();
+		}, 1000 + (Math.random() * 20) * 100);
+		/*Script modified by @daaef*/
+		console.log(msg);
 		prompInp.value = '';
 		toggleInp();
+		userText.focus();
 		return;
 	} else if(prompInp.value.length<1 && userText.value.length>1){
-		dz.innerHTML = userText.value;
+		
+		/*Script modified by @daaef*/
+		msg = $('.message-input.one').val();
+		$('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+		updateScrollbar();
+		setDate();
+		
+		/*Script modified by @daaef*/
 	}
 	bot.listen(userText.value);
+	console.log(userText.value)
 	userText.value = "";
+	updateScrollbar();
 	userText.focus();
 }
 
@@ -41,7 +114,6 @@ prompInp.addEventListener("keypress", (e)=>{
 		bot.setUser(prompInp.value);
 		bot.start();
 		console.log(prompInp.value);
-		dz.innerHTML = prompInp.value;
 		prompInp.value = '';
 		toggleInp();
 	}
@@ -59,8 +131,8 @@ let bot = {
 	asked: "",
 	greetings: {
 		intros: [
-			`Hi {{user}}, my name is {{name}}, I am your assistant, and I am here to help you with your Eurus transaction`,
-			`Hello {{user}} my name is {{name}}, your companion at Eurus wallet`,
+			`Hi {{user}}, my name is {{name}}, I am your assistant, and I am here to help you with questions you might have`,
+			`Hello {{user}} my name is {{name}}, your companion at Eurus`,
 			`Welcome {{user}}, it is another day with Eurus wallet`,
 			`Hello {{user}} how can I be of help to you`,
 			'Welcome {{user}} how may I help you today'
@@ -70,7 +142,7 @@ let bot = {
 			`Hello, I am {{name}}, what is your name <i>(just your first name) </i>.`,
 			`Hello, my name is {{name}}, how about you <i>(just your first name) </i>.`,
 			`Hi, I am {{name}}, whats the name? <i>(just your first name) </i>`,
-			'Welcome to Eurus e-wallet, what is your name? <i>(just your first name) </i>'
+			'Welcome to Eurus, what is your name? <i>(just your first name) </i>'
 		],
 	},
 	talk:[
@@ -89,21 +161,21 @@ let bot = {
 		['ah', 'yes', 'ok', 'okay'],
 		['Thank you', 'Thanks'],
 		['bye', 'good bye', 'goodbye', 'see you later', 'see you soon'],
-		['how to track finance', 'how to track my finance', 'how to track finances', 'how to track my finances'],
-		['current conversion rate', 'conversion rate'],
+		['finance','how to track finance', 'how to track my finance', 'how to track finances', 'how to track my finances'],
+		['current conversion rate', 'conversion rate', 'currency conversion'],
 		['receive money', 'transfer money']
 	],
 	reply:[
 		['Hello {{user}}', 'Hi {{user}}', 'Hey'],
 		['Fine', 'Pretty well', 'Fantastic', 'I\'m fine {{user}}, thank you', 'I feel great today, thanks for asking {{user}}'],
 		['working as an assistant, my day couldn\'t be much better', 'my day was wonderfull as I\'d set out to help many people having issues with their Eurus wallet' ],
-		['well I was made on 2019'],
+		['well I was made in 2019'],
 		['I am just a bot', 'I am your assistant'],
 		['I was created by the Eurus team', 'I was made by the Eurus team'],
 		['Nothing much', 'I am here to help you', 'am not ready to go to sleep', 'Am still checking, not sure yet'],
 		[`I am {{name}}`, `my name is {{name}}`],
 		['Well I didn\'t think of that as I don\'t have emotions', 'that is nice of you {{user}}'],
-		['Have you ever felt bad', 'I am glad to here that', 'That is nice to here'],
+		['Have you ever felt bad', 'I am glad to hear that', 'That is nice to hear'],
 		['Why? What happened', 'that\'s no good {{user}}', 'Try watching TV'],
 		['I will in my own little way', 'about what actually?'],
 		['Okay {{user}}', 'Tell me about yourself {{user}}', 'ah'],
@@ -152,7 +224,7 @@ let bot = {
 			this.say(this.brain.compare(e));
 			return;
 		}else{
-			this.say("I may not understand what you mean because I am just a robot. I can help you search for things if yiu say \"what is HNG\" or \"How to code\" ");
+			this.say("I'm really trying here but you don't seem to understand the fact that I am just a robot. Really though, I can help you search for things if you say \"what is HNG\" or \"How to code\" ");
 		}
 	},
 	start: function(e){
@@ -164,8 +236,25 @@ let bot = {
 	},
 	say: function(e){
 		e = this.replacer(e);
-		botDisplay.innerHTML = e;
 		this.mouth(e);
+		
+		/*Script modified by @daaef*/
+		  $('<div class="message loading new"><figure class="avatar"><img src="apegg3.png" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+		  updateScrollbar();
+		
+		  setTimeout(function() {
+			$('.message.loading').remove();
+			$('<div class="message new">' +
+				'<figure class="avatar">' +
+				'<img src="apegg3.png" />' +
+				'</figure>' + e + '</div>').appendTo($('.mCSB_container')).addClass('new');
+			setDate();
+			updateScrollbar();
+			i++;
+		  }, 1000 + (Math.random() * 20) * 100);
+		  
+		/*Script modified by @daaef*/
+		
 	},
 	greet: function(){
 		let num = Math.random();
@@ -205,3 +294,4 @@ let bot = {
 		}
 	}
 }
+
