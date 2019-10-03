@@ -42,12 +42,12 @@ function insertMessage() {
   }, 1000 + (Math.random() * 20) * 100);
 }
 
-$('.message-submit').click(function() {
+$('#send').click(function() {
 	sendText()
 });
 
 $(window).on('keydown', function(e) {
-  if (e.which == 13) {
+  if ((e.which === 13 || e.keyCode === 13) && userText.value.length !== 0) {
     sendText()
     return false;
   }
@@ -57,6 +57,7 @@ $(window).on('keydown', function(e) {
 
 let userText = document.querySelector(".message-input.one");
 let prompInp = document.querySelector(".message-input.two");
+let muteBtn = document.getElementById('mute');
 
 window.onload = ()=>{
 	userText.focus();
@@ -66,6 +67,19 @@ window.onload = ()=>{
 userText.addEventListener("keypress", (e)=>{
 	if ((e.which === 13 || e.keyCode === 13) && userText.value.length !== 0) {
 		sendText();
+	}
+});
+
+// Added by @Micaiah Effiong
+muteBtn.addEventListener('click', (e)=>{
+	if (muteBtn.value.toLowerCase() == 'mute') {
+		bot.muteUnmute(e.target.value.toLowerCase());
+		muteBtn.value = 'Unmute';
+		muteBtn.innerHTML = '<del>&#128266;</del>';
+	} else {
+		bot.muteUnmute(muteBtn.value.toLowerCase());
+		muteBtn.value = 'Mute';
+		muteBtn.innerHTML = '&#128266;';
 	}
 });
 
@@ -167,7 +181,7 @@ let bot = {
 	],
 	reply:[
 		['Hello {{user}}', 'Hi {{user}}', 'Hey'],
-		['Fine', 'Pretty well', 'Fantastic', 'I\'m fine {{user}}, thank you', 'I feel great today, thanks for asking {{user}}'],
+		['I am Fine', 'I\'m doing Pretty well', 'Fantastic', 'I\'m fine {{user}}, thank you', 'I feel great today, thanks for asking {{user}}'],
 		['working as an assistant, my day couldn\'t be much better', 'my day was wonderfull as I\'d set out to help many people having issues with their Eurus wallet' ],
 		['well I was made in 2019'],
 		['I am just a bot', 'I am your assistant'],
@@ -272,12 +286,20 @@ let bot = {
 			.replace("{{user}}", this.user)
 		)
 	},
+	// Added by @Micaiah Effiong
+	speechAbility: new SpeechSynthesisUtterance(),
+	muteUnmute: function(opt){
+		if (opt.toLowerCase() == 'mute') {
+			this.speechAbility.volume = 0;
+		} else {
+			this.speechAbility.volume = 1;
+		}
+	},
 	mouth: function(word){
-		let speechAbility = new SpeechSynthesisUtterance();
-		speechAbility.text = word;
-		speechAbility.rate = .7;
-		speechAbility.voice = speechSynthesis.getVoices()[0];
-		return speechSynthesis.speak(speechAbility);
+		this.speechAbility.text = word;
+		this.speechAbility.rate = .7;
+		this.speechAbility.voice = speechSynthesis.getVoices()[0];
+		return speechSynthesis.speak(this.speechAbility);
 	},
 	setUser: function(e){
 		if (e.toLowerCase().includes('my name is') || e.toLowerCase().includes('i am')) {
@@ -294,4 +316,3 @@ let bot = {
 		}
 	}
 }
-
