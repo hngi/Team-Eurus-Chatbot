@@ -1,9 +1,10 @@
 
-/*Script added by @daaef*/
 
 var $messages = $('.messages-content'),
     d, h, m,
-    i = 0;
+	i = 0;
+	
+$(".messages-content").stop().animate({ scrollTop: $(".messages-content")[0].scrollHeight}, 1000);
 
 $(window).load(function() {
   $messages.mCustomScrollbar();
@@ -44,6 +45,7 @@ function insertMessage() {
 
 $('.message-submit').click(function() {
 	sendText()
+	$(".messages-content").stop().animate({ scrollTop: $(".messages-content")[0].scrollHeight}, 1000);
 });
 
 $(window).on('keydown', function(e) {
